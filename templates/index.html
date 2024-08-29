@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Agenda
+        </title>
+
+        <script>
+            function showMessage(){
+                alert("Usuario anadido correctamente!");
+                return true;
+            }
+        </script>
+    </head>
+
+    <body>
+
+        <h2>Agregar un nuevo usuario:</h2>
+        <form action="/" method="post" onsubmit="return showMessage()">
+            <label>Ingrese el nombre:</label>
+            <input type="text" id="Name" name="name"><br><br>
+            <label>Ingrese el apellido:</label>
+            <input type="text" id="LName" name="lname"><br><br>
+            <input type="submit" value="Agregar a la agenda">
+        </form>
+
+        <hr>
+
+        <div>
+            <h3>Lista de usuarios en la agenda:</h3>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.idUsuarios }}</td>
+                            <td>{{ user.Name }}</td>
+                            <td>{{ user.LName }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+    </body>
+</html>
