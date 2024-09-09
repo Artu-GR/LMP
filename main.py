@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, json
 
 import pymysql
 
@@ -50,6 +50,40 @@ def submit():
 
     return redirect(url_for('index'))    
 
+@app.route('/update/<int:id>', methods=['POST'])
+def update(id):
+    firstName = request.form['nameU']
+    lastName = request.form['lnameU']
+
+    connection = getDBConnection()
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute("UPDATE usuarios SET Name=%s, LName=%s WHERE idUsuarios=%s", (firstName, lastName, id))
+        connection.commit()
+    except pymysql.MySQLError as e:
+        print(f"Error: {e}")
+    finally:
+        cursor.close()
+        connection.close()
+
+    return redirect(url_for('index'))
+
+@app.route('/delete/<int:id>', methods=['POST'])
+def delete(id):
+    connection = getDBConnection()
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute("DELETE FROM usuarios WHERE idUsuarios=%s", (id))
+        connection.commit()
+    except pymysql.MySQLError as e:
+        print(f"Error: {e}")
+    finally:
+        cursor.close()
+        connection.close()
+
+    return redirect(url_for('index'))
 
 if __name__ == "__main__":
     app.run()

@@ -34,6 +34,8 @@
                         <th>ID</th>
                         <th>Nombre</th>
                         <th>Apellido</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
 
@@ -43,6 +45,18 @@
                             <td>{{ user.idUsuarios }}</td>
                             <td>{{ user.Name }}</td>
                             <td>{{ user.LName }}</td>
+                            <td> 
+                                <form action="/update/{{ user.idUsuarios }}" method="post">
+                                    <input type="text" name="nameU" placeholder="Nuevo nombre" required>
+                                    <input type="text" name="lnameU" placeholder="Nuevo apellido" required>
+                                    <button type="submit">Actualizar</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="/delete/{{ user.idUsuarios }}" method="post">
+                                    <button type="submit">Eliminar</button>
+                                </form>
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
